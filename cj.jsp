@@ -1,37 +1,55 @@
-﻿<%@ page language="java" contentType="text/html;
-    pageEncoding=utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="com.neuq.bean.StudentGrade"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <html>
-<head>
-<title>学生成绩查询</title>
-		<title>学生成绩查询</title>
-		<link rel="stylesheet" href="../css/StudentResult.css" />
-	</head>
-	<body>
-		<div class="naver"></div>
-		<div class="main">
-			<table class="t1" border="1px solid black">
-				<tr><th width="300px">学生名</th>
-					<th width="300px">学生成绩</th>
-				</tr>
-				<!-- 获取学生成绩的集合(list) -->
-				<c:forEach items="${sessionScope.list } var="user">
-				<tr>
-				<td>${user.Id }</td>
-				<td>${user.username}</td>
-				<td>${user.score }</td>
-				<td>${user.papername }</td>
-				</tr>
-				</c:forEach>
-				
-				
-				
-			</table>
-			
-		</div>
-		<div class="footer">
-			<div class="copyright">Copyright © 1996-2017. All Rights Reserved. 版权所有</div>
-		</div>
-</body>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>学生成绩</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<script>
+	</script>
+  </head>
+  <body>
+  		<!-- 用jsp语句,将servlet传过来的list数据拿到,并放到一个list中 -->
+  	<% 
+  		ArrayList<StudentGrade> list = (ArrayList<StudentGrade>) request.getAttribute("list");
+  	%>
+  	<!-- 声明一个表格,这是表头 -->
+  	<h2 align = "center">成绩列表</h2>
+  	<table border = 1px align = "center">
+  		<tr>
+  			<th>用户id</th>
+  			<th>用户名</th>
+  			<th>成绩</th>
+  			<th>考试名称</th>
+  		</tr>
+  		
+  		<%
+  			for(int i = 0;i<list.size();i++){
+  				StudentGrade sg =(StudentGrade) list.get(i);%>
+  				<tr>
+  				<th><%=sg.getId()%></th>
+  				<th><%=sg.getUsername()%></th>
+  				<th><%=sg.getBctscore()%></th>
+  				<th><%=sg.getPapername()%></th><br>
+  				
+  				<!-- 此处设置了一个修改<a>标签,做修改操作.并将上面拿到的数据传给update.jsp,当进入修改页面的时候,原来的数据会显示 -->
+  				<th><a href="update.jsp?name=<%=sg.getId()%>&author=<%=sg.getUsername()%>&
+  				&country=<%=sg.getBctscore()%>&price=<%=sg.getPapername()%>">修改</a> 
+  				<!-- 删除操作,只把name字段传给Delete_Servlet.java,用来做删除操作 -->
+  				<a href="<%=sg.getId()%>" onclick="confirm('确定删除该条记录?')">删除</a>
+  				</th>
+  		<% }
+  		 %> 
+  	</table>
+  </body>
 </html>

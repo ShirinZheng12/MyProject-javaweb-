@@ -1,101 +1,123 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<%@ page language="java" contentType="text/html" import="java.util.*"
+	pageEncoding="utf-8"%>
+<%@ taglib uri="http://www.atg.com/taglibs/json" prefix="json"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="javax.servlet.http.HttpSession"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head>
-		<base href="<%=basePath%>">
+<head>
+<title>登录页</title>
+<meta name="keywords" content="登录页面" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link rel="shortcut icon" type="image/x-icon"
+	href="res/homepage/favicon.ico?v=3.9" />
+<link href="css/screen.css?v=3.9" media="screen, projection"
+	rel="stylesheet" type="text/css">
+<link href="css/basic.css" type="text/css" rel="stylesheet" />
+<!-- <link href="css/style.css" type="text/css" rel="stylesheet" /> -->
+<link rel="stylesheet" type="text/css" href="css/base.css?v=3.9">
+<link rel="stylesheet" type="text/css" href="css/login.css?v=3.9">
+<script type="text/javascript" src="js/checkCode.js"></script>
+</head>
+<body>
+	<% Cookie[] cs = request.getCookies();
+    String username="";
+    String password="";
+    if(cs.length != 0){
+    	for(int i = 0;i < cs.length;i++){
+    		Cookie c  = cs[i];
+    		if("un".equals(c.getName())){
+    			username = c.getValue();
+    		}
+    		 if("password".equals(c.getName()))
+    	       {
+    	         password=c.getValue();
+    	       }
+    	}
+    }
+    
+    %>
+	<div class="header">
+		<p>题库管理系统</p>
+	</div>
+	<div class="logina-main main clearfix">
+		<div class="tab-con">
+			<form id="form01" name="form01" action="Login" method="post"
+				onSubmit="return myCheck()">
+				<div id='login-error' class="error-tip"></div>
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<th>用户名</th>
+							<td width="245"><input id="username" type="text"
+								name="username" placeholder="请输入用户名" autocomplete="off"
+								value="${cookie.username.value }"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<th>密码</th>
+							<td width="245"><input id="password" type="password"
+								name="password" placeholder="请输入密码" autocomplete="off"
+								value="${cookie.password.value }"></td>
+							<td></td>
+						</tr>
+						<tr id="tr-vcode" style="">
+							<th>验证码</th>
+							<td width="245">
+								<div class="valid">
+									<input name="vcode" id="vcode" type="text" onblur="check()"
+										onfocus="delData()" placeholder="请输入验证码";> <span
+										id="verSpan"></span> <img id="codeImg" src="code" alt="点击换一张"
+										onclick="javascript:reloadcode()" width="85" height="35"
+										alt="" />
 
-		<title>登录</title>
+								</div>
+							</td>
 
-		<meta http-equiv="pragma" content="no-cache">
-		<meta http-equiv="cache-control" content="no-cache">
-		<meta http-equiv="expires" content="0">
-		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-	
-		<!-- <style>
-			.bg {
-				background:url(images/306790.jpg);
-				background-repeat:repeat;
-			}
-		</style> -->
+						</tr>
 
-	</head>
-	
-	<body style="background:url(admin/images/300170.jpg)">
+						<tr class="find">
+							<th></th>
+							<td>
+								<div>
+									<label class="checkbox" for="chk11"><input
+										style="height: auto;" id="chk11" type="checkbox"
+										name="remember_me">记住我</label> <a href="passport/forget-pwd">忘记密码？</a>
+								</div>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<th></th>
+							<td width="245"><input class="confirm" type="submit"
+								value="登  录"></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="hidden" name="refer" value="site/">
+			</form>
+		</div>
 
-		<form action="loginAction" method="post">
-			<table
-				style="position:relative; margin-top:300px; margin-left:700px; background-image: url(admin/images/login_error.png); width: 460px; height: 260px;">
+		<div class="reg">
+			<!-- 竖线 -->
+			<table id="tab1">
 				<tr>
-					<!-- <td colspan="2">
-						<img src="admin/images/login_header.png">
-					</td> -->
-					
-					<td colspan="2" style="padding-left:150px; padding-top:20px">
-						<h1>题库管理系统</h1>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						&nbsp;&nbsp;&nbsp;<img src="admin/images/login_computer.png" style="width: 120px; height: 120px">
-					</td>
-					
-					<td>
-						<table align="center">
-							<tr>
-								<td align="left" style="width: 60px;">
-									用户名
-								</td>
-								<td align="left">
-									<input type="text" name="username" style="width: 200px;">
-								</td>
-							</tr>
-							<tr><td colspan="2"></td></tr>
-							<tr>
-								<td align="left">
-									密码
-								</td>
-								<td align="left">
-									<input type="password" name="password" style="width: 200px;">
-								</td>
-							</tr>
-							<tr><td colspan="2"></td></tr>
-							<tr>
-								<!-- <td colspan="2" align="right">
-									<input type="radio" name="userClass" value="student"
-										checked="checked">学生
-									<input type="radio" name="userClass" value="teacher">老师
-									<input type="radio" name="userClass" value="teacher">管理员
-								</td> -->
-								<td colspan="2" align="center">
-									<!-- <input type="radio" name="userClass" value="student"
-										checked="checked">学生 -->
-									<input type="radio" name="userClass" value="teacher">老师
-									<input type="radio" name="userClass" value="teacher">管理员
-								</td>
-							</tr>
-							<tr><td colspan="2"></td></tr>
-							<tr>
-								<td colspan="2" align="center">
-									<input type="submit" value="登录">
-								</td>
-							</tr>
-						</table>
-					</td>
+					<td valign="top"></td>
 				</tr>
 			</table>
-		</form>
-		
-	</body>
-	
+			<p>
+				还没有账号？<br>赶快免费注册一个吧！
+			</p>
+			<a class="reg-btn" href="register.jsp">立即免费注册</a>
+		</div>
+	</div>
+	<!-- <div id="footer">
+            <div class="copyright">Copyright © 1999-2019. All Rights Reserved. 版权所有</div>
+        </div>	 -->
+	<div id="footer" class="footer">
+		<div class="copyright">Copyright © 1999-2019. All Rights
+			Reserved. 版权所有 冀ICP备16013410号</div>
+	</div>
+</body>
 </html>
