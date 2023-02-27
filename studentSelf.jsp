@@ -1,27 +1,54 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@page import="com.neuq.bean.Student"  %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html>
-<style type="text/css">
+	<head>
+    <meta charset="utf-8" />
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			.b{
+				background-color: ghostwhite;
+			}
 			.naver{
 				width: 100%;
-				height: 100px;
+				height: 80px;
 				/*background-color: blue;*/
-				border: 1px solid black;
+				/*border: 1px solid black;*/
+				background-image: url(../images/logo.jpg);
+			}
+			
+			.content{
+				width: 100%;
+				height: 500px;
+				background-color: ghostwhite;
+				/*position: absolute;*/
+				margin-top: 50px;
 			}
 			.main{
 				margin: 0 auto;
 				width: 80%;
-				height: 800px;
-				margin-top: 30px;
+				height: 480px;
 				/*background-color: yellow;*/
-				border: 1px solid black;
+				/*border: 1px solid black;*/
+				/*position: absolute;*/
+			}
+			.naver p{
+				font-size: 30px;
+				color: white;
+				text-align: center;
+				line-height: 80px;
+				
 			}
 			#fp{
 				font-family: "微软雅黑";
-				font-size: 18px;
+				font-size: 30px;
 				margin-bottom: 5px;
+				color: black;
 			}
 			.h{
 				margin-top: 0px;
@@ -30,28 +57,43 @@
 				margin-left: 900px;
 				width: 70px;
 				height: 30px;
-				background-color: greenyellow;
+				background-color: white;
 			}
 			.m2{
 				margin-top: 60px;
 				margin-left: 200px;
 			}
+			.m2 p{
+				font-family: "微软雅黑";
+				font-size: 20px;
+			}
 			input{
 				width: 200px;
-				height: 25px;
+				height: 22px;
 			}
 			.footer{
 				width: 100%;
-				height: 200px;
-				border: 1px black  solid;
+				height: 50px;
+				/*border: 1px black  solid;*/
+				background-image: url(../images/logo.jpg);
+				position: absolute;
 				
+			}
+			.copyright{
+	           text-align: center;
+				line-height: 50px;
+				font-family: "微软雅黑";
+				color: white;
 			}
 		</style>
 		<title>个人中心</title>
 	</head>
-	<body>
-	<%Student u = (Student)session.getAttribute("Student"); %>
-		<div class="naver"></div>
+	<body class="b">
+
+		<div class="naver">
+			<p>题库管理系统</p>
+		</div>
+		<div class="content">
 		<div class="main">
 			<table class="m1">
 				<tr>
@@ -61,63 +103,66 @@
 				</tr>
 			</table>
 			<hr class="h" color="grey"/>
-			<form action=" " method="post">
+			<form action="../UploadSelfInfo?usertype=3" method="post">
 			  <table class="m2">
 			  	<tr height="60px">
-			  		<td>用户名</td>
+			  		<td><p>用户名</p></td>
 			  		<td>
-			  		  <input type="text" name="username" value="<%=u.getUsername()%>" style="width:200px height: 100px;"/>
+			  		  <input type="text" name="username" value="${Student.username}" style="width:200px height: 100px;"/>
 			  		</td>
 			  	</tr>
 			  	<tr height="60px">
-			  		<td>密码</td>
+			  		<td><p>密码</p></td>
 			  		<td>
-			  		  <input type="password" value="<%=u.getPwd()%>" name="pwd" />
+			  		  <input type="password" value="${Student.pwd}" name="pwd" />
 			  		</td>
 			  	</tr>
 			  	<tr height="60px">
-			  		<td>姓名</td>
+			  		<td><p>姓名</p></td>
 			  		<td>
-			  		  <input type="text" name="name" value="<%=u.getName()%>" />
+			  		  <input type="text" value="${Student.username}" name="name" />
 			  		</td>
 			  	</tr>
 			  	
 			  	<tr height="20px">
-			  		<td>性别</td>
+			  		<td><p>性别</p></td>
 			  		<td>
-			  		  男<input type="radio" name="usex" value="<%=u.getSex()%>" checked style="height: 20px; width: 100px;">&nbsp;
-			  		 女<input type="radio" name="usex" value="<%=u.getSex()%>" style="height: 20px; width: 100px;">
+			  		  男<input type="radio" name="usex"  value="${Student.sex}" checked style="height: 20px; width: 100px;">&nbsp;
+			  		 女<input type="radio" name="usex"  value="${Student.sex}" style="height: 20px; width: 100px;">
 			  		</td>
 			  	</tr>
 			  	<tr height="60px">
-			  		<td>班级</td>
+			  		<td><p>班级</p></td>
 			  	  	<td>
-			  			<input type="text" name="sclass" value="<%=u.getStudentclass()%>" />
+			  			<input type="text" value="${Student.studentclass}" name="sclass" />
 			  		</td>
 			  	  </tr>
 			  	  <tr height="60px">
-			  		<td>手机号</td>
+			  		<td><p>手机号</p></td>
 			  	  	<td>
-			  			<input type="text" name="num" value="<%=u.getTelephone()%>" />
+			  			<input type="text" value="${Student.telephone}" name="telephone" />
 			  		</td>
 			  	  </tr>
 			  	  <tr height="60px">
-			  		<td>邮箱</td>
+			  		<td><p>邮箱</p></td>
 			  	  	<td>
-			  			<input type="text" name="email" value="<%=u.getEmail()%>" />
+			  			<input type="text" value="${Student.email}" name="email" />
 			  		</td>
 			  	  </tr>
 			  	  <tr>
 			  	  	<td >
-			  	  		<input type="submit" value="保存" style="width: 60px;" />	
+			  	  		<input type="submit" value="保存" style="width: 60px; background-color: lightblue;" />	
 			  	  	</td>
 			  	  	<td>
-			  	  		<input type="submit" value="返回主页 "style="width: 80px;" />
+			  	  		<input type="submit" value="返回主页 "style="width: 80px; background-color: lightblue;" />
 			  	  	</td>
 			  	  </tr>
 			  </table>
 			</form>	
 		</div>
-		<div class="footer"></div>
-</body>
+		</div>
+		<div id="footer" class = "footer" style="position:absolute;bottom:0;">
+		<div class="copyright" style="left: 750px;">Copyright © 1999-2019. All Rights Reserved.  版权所有    冀ICP备16013410号</div>
+        </div>
+ 	</body>
 </html>

@@ -1,26 +1,27 @@
-<%@page contentType="text/html"%>
+﻿<%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
+
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>教师首页</title>
-        <link rel="stylesheet" type="text/css" href="css/teacherIndex.css"/>
-    	<link rel="stylesheet" type="text/css" href="../css/slideshow.css"/>
-    	<script type="text/javascript" src="../js/slideshow.js"></script>
-    </head>
-    <body>
-    	<div class="header">
-			<p>题库管理系统</p>
+	<head>
+		<meta charset="utf-8" />   
+		<title>学生主页</title>
+		<link href="../css/slideshow.css" rel="stylesheet" />
+		<link href="../css/studentIndex.css" rel="stylesheet" />
+		<script src="../js/slideshow.js" type="text/javascript"></script>
+	</head>
+	<body>
+
+		<div class="header">
+			<p>在线考试系统</p>
 		</div>
 		<div id="nave">
 			<table id="tab1">
 				<tr>
 					<td id="td1">
-						欢迎教师${sessionScope.Teacher.username}登陆
+					欢迎学生${sessionScope.Student.username }登陆						
 					</td>
-					<td style="text-align: center;">|</td>
-					<td id="td11"><a href="../Logout"><p style="font-size:17px">退出</p></a></td>
 				</tr>
 			</table>
 		</div>
@@ -56,13 +57,10 @@
         	SlideShow(3000);
     	</script>
     	<!--图片轮播结束-->
-    	<!--教师选项-->
+    	<!--学生选项-->
     	<div id="main">
-    	<!--加图片-->
-    		
-    		
     		<table id="tab2">
-    			<!--<tr>
+    			<tr>
     				<td class="tdd1">
     					<a href="seeFaults.jsp">
     						<img src="../images/stu1.jpg" />
@@ -74,7 +72,7 @@
     					</a>
     				</td>
     				<td class="tdd1">
-    					<a href="seeResult.jsp">
+    					<a href="../ShowStudentgrade">
     						<img src="../images/stu3.jpg" />
     					</a>
     				</td>
@@ -88,60 +86,30 @@
     						<img src="../images/stu4.jpg" />
     					</a>
     				</td>
-    			</tr>-->
-    			
-    			<tr>
-    				<td class="tdd1">
-    					<a href="seePaper.jsp">
-    						<img src="../images/stu1.jpg" />
-    					</a>
-    				</td>
-    				<td class="tdd1">
-    					<a href="http://localhost:8080/online_examination_system/loginAction">
-    						<img src="../images/stu2.jpg" />
-    					</a>
-    				</td>
-    				<td class="tdd1">
-    					<a href="../ShowUserInfo">
-    						<img src="../images/stu3.jpg" />
-    					</a>
-    				</td>
-    				<td class="tdd1">
-    					<a href="teacherSelf.jsp">
-    						<img src="../images/stu5.jpg" style="width:100px;height:100px"/>
-    					</a>
-    				</td>
     			</tr>
-    			
     			<tr>
     				<td class="tdd2">
-    					<a href="seePaper.jsp">查看课程</a>
+    					<a href="seeFaults.jsp">我的错题</a>
     				</td>
-    				<!-- <td class="tdd2">
-    					<a href="../SelectClassAndPaper?type=1">批改试卷</a>
-    				</td> -->
     				<td class="tdd2">
-    					<a href="addQuestion.jsp">添加题目</a>
+    					<a href="showExam.jsp">查看考试</a>
     				</td>
-    				<!-- <td class="tdd2">
-    					<a href="createPaper0.jsp">生成试卷</a>
-    				</td> -->
     				<td class="tdd2">
-    					<a href="../ShowUserInfo">管理学生</a>
+    					<a href="../ShowStudentgrade">查看成绩</a>
     				</td>
-    				<!-- <td class="tdd2">
-    					<a href="../ShowStudentGrade">查看成绩</a>
-    				</td> -->
     				<td class="tdd2">
-    					<a href="teacherSelf.jsp">个人中心</a>
+    					<a href="selfTest0.jsp">自测</a>
+    				</td>
+    				<td class="tdd2">
+    					<a href="studentSelf.jsp">个人中心</a>
     				</td>
     			</tr>
     		</table>
     	</div>
     	
     	
-		<div id="footer" class = "footer" style="position:absolute;bottom:0;">
-		<div class="copyright" style="left: 750px;">Copyright © 1999-2019. All Rights Reserved.  版权所有    冀ICP备16013410号</div>
+		<div id="footer">
+            <div class="copyright">Copyright © 1996-2017. All Rights Reserved. 版权所有</div>
         </div>
- 	</body>
+	</body>
 </html>
