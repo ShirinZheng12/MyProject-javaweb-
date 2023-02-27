@@ -1,4 +1,4 @@
-<%@page contentType="text/html"%>
+﻿<%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -6,7 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>管理员主页</title>
         <link rel="stylesheet" type="text/css" href="../css/slideshow.css"/>
-    	<link type="text/css" rel="stylesheet"  href="css/managerIndex.css" />
+    	<link type="text/css" rel="stylesheet"  href="../css/managerIndex.css" />
 		<script src="../js/slideshow.js" type="text/javascript"></script>
     </head>
     <body>
@@ -17,7 +17,7 @@
 			<table id="tab1">
 				<tr>
 					<td id="td1">
-						欢迎管理员${sessionScope.Manager.username}登陆
+						欢迎管理员${Manager.managername }登陆
 					</td>
 				</tr>
 			</table>
@@ -64,7 +64,7 @@
     					</a>
     				</td>
     				<td class="tdd1">
-    					<a href="managerRelease.jsp">
+    					<a href="managerAdd.jsp">
     						<img src="../images/stu2.jpg" />
     					</a>
     				</td>
@@ -76,13 +76,13 @@
     			</tr>
     			<tr>
     				<td class="tdd2">
-    					<a href="managerTeacher.jsp">管理教师用户</a>
+    					<a href="">查看教师</a>
     				</td>
     				<td class="tdd2">
-    					<a href="managerRelease.jsp">管理公告</a>
+    					<a href="">发布公告</a>
     				</td>
     				<td class="tdd2">
-    					<a href="managerSelf.jsp">个人中心</a>
+    					<a href="">个人中心</a>
     				</td>
     			</tr>
     		</table>
@@ -90,7 +90,7 @@
     	
     	
 		<div id="footer" class = "footer" style="position:absolute;bottom:0;">
-		<div class="copyright" style="left: 750px;">Copyright © 1999-2019. All Rights Reserved. 版权所有</div>
+		<div class="copyright" style="left: 750px;">Copyright © 1996-2017. All Rights Reserved. 版权所有</div>
         </div>
  	</body>
 </html>
